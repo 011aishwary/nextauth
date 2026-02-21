@@ -51,13 +51,13 @@ const Navbar = () => {
                     Try Me
                   </motion.button>
                 </Link>
-                <Link href="/github">
+                <Link href="/profile">
                   <motion.button 
                     whileHover={{ scale: 1.05, backgroundColor: "#333" }}
                     whileTap={{ scale: 0.95 }}
                     className='bg-black border border-white/20 px-5 py-2 font-bold rounded-full text-sm hover:border-white/50 transition-colors' 
                   >
-                    GitHub
+                    Profile
                   </motion.button>
                 </Link>
             </li>
@@ -110,12 +110,12 @@ const Navbar = () => {
                       Try Me
                     </motion.button>
                   </Link>
-                  <Link href="/github" onClick={() => setIsOpen(false)}>
+                  <Link href="/profile" onClick={() => setIsOpen(false)}>
                     <motion.button 
                       whileTap={{ scale: 0.95 }}
                       className='bg-black border border-white/20 w-full py-3 font-bold rounded-full' 
                     >
-                      GitHub
+                      Profile
                     </motion.button>
                   </Link>
                 </div>

@@ -5,6 +5,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 const login = () => {
     const router = useRouter()
@@ -17,38 +18,37 @@ const login = () => {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
 
-    const onLogin = async () => {
-
+    const onLogin = async (e) => {
+        e.preventDefault();
         try {
             setLoading(true)
-            const responsee = await axios.post("/api/users/login", user).then(response => {
+            await axios.post("/api/users/login", user).then(response => {
                 setSuccess(true)
                 setError("")
+                toast.success("Login Successful")
                 router.push("/profile")
                 console.log(response);
             })
                 .catch(error => {
                     setSuccess(false)
                     setError(error.response.data.error)
-                    
+                    toast.error(error.response.data.error)
                     console.error('Error fetching data:', error.response.data.error)
 
                 });
-            console.log("Login Successful", responsee)
-            // if(response.status){
-            // }
             
             setLoading(false)
 
         } catch (error) {
             console.log("Login Failed")
             toast.error(error.message)
+            setLoading(false)
         }
 
     }
 
     useEffect(() => {
-        if (user.email.length > 5 && user.password.length > 3) {
+        if (user.email.length > 0 && user.password.length > 0) {
             setButtonDisabled(false)
         }
         else {
@@ -60,63 +60,78 @@ const login = () => {
 
 
     return (
-        <div className="flex flex-col justify-center sm:h-screen  p-4">
-            <div className="max-w-md w-full mx-auto border border-gray-300   rounded-2xl p-8">
-                <div className="text-center mb-2 text-white">
-                    
-                        { loading? "Processing": "Login" }
-                        <br />
-                        <span className={` bg-green-500  rounded-[4px] text-white ${success?"px-3":""} `}>{ success? "Login Successful" :null }</span>
-                        <span className={` bg-red-700  rounded-[4px] text-white ${error?"px-3":""} `}>{ error? `${error}` :null }</span>
-                        
-                        
-                    
-                    <br />
-
+        <div className="flex flex-col justify-center min-h-screen p-4 items-center ">
+            <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-md bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl"
+            >
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
+                    <p className="text-gray-400">Please sign in to your account</p>
                 </div>
 
-                <form>
-                    <div className="">
-                        <div>
-                            <label htmlFor='email' className="text-slate-200 text-sm font-medium m-2 block">Email Id</label>
-                            <input name="email" type="text" value={user.email}
-                                onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                className="text-white  border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Enter email" />
-                        </div>
-                        <div>
-                            <label htmlFor='password' className="text-slate-200 text-sm font-medium m-2 block ">Password</label>
-                            <input name="password" type="password"
-                                value={user.password}
-                                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                                className="text-white  border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Enter password" />
-                        </div>
-                        {/* <div>
-              <label htmlFor='username' className="text-slate-200 text-sm font-medium m-2 block ">Username</label>
-              <input name="username" type="text"
-              value={user.username}
-              onChange={(e)=> setUser({...user , username: e.target.value})}
-               className="text-white  border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Enter Username" />
-            </div> */}
+                <div className="mb-4 text-center min-h-[24px]">
+                     {error && <span className="text-red-400 text-sm bg-red-400/10 px-3 py-1 rounded-full border border-red-400/20">{error}</span>}
+                </div>
 
-                        {/* <div className="flex items-center mt-1">
-              <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-              <label htmlFor="remember-me" className="text-slate-200 ml-3 block text-sm">
-                I accept the <a href="javascript:void(0);" className="text-blue-600 font-medium hover:underline ml-1">Terms and Conditions</a>
-              </label>
-            </div> */}
+                <form onSubmit={onLogin} className="space-y-6">
+                    <div>
+                        <label htmlFor='email' className="text-gray-300 text-sm font-medium mb-2 block">Email Address</label>
+                        <input 
+                            name="email" 
+                            type="text" 
+                            value={user.email}
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
+                            className="w-full bg-white/5 border border-white/10 text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-500" 
+                            placeholder="Enter your email" 
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor='password' className="text-gray-300 text-sm font-medium mb-2 block">Password</label>
+                        <input 
+                            name="password" 
+                            type="password"
+                            value={user.password}
+                            onChange={(e) => setUser({ ...user, password: e.target.value })}
+                            className="w-full bg-white/5 border border-white/10 text-white text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-500" 
+                            placeholder="Enter your password" 
+                        />
                     </div>
 
-                    <div className="mt-12">
-                        <button type="button" onClick={onLogin} className="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer">
-                            {buttonDisabled ? "Fields Required" : "Login"}
-                        </button>
-                    </div>
-                    <div></div>
-                    <p className="text-slate-200 text-sm mt-6 text-center">Don't have an account? <Link href="/signup" className="text-blue-600 font-medium hover:underline ml-1">SignUp here</Link></p>
+                    <motion.button 
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        disabled={buttonDisabled || loading}
+                        type="submit" 
+                        className={`w-full py-3 px-4 text-sm font-bold rounded-lg text-white transition-all duration-300 
+                            ${buttonDisabled || loading 
+                                ? "bg-gray-600 cursor-not-allowed opacity-50" 
+                                : "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/30"
+                            }`}
+                    >
+                        {loading ? (
+                            <div className="flex items-center justify-center gap-2">
+                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                Processing...
+                            </div>
+                        ) : "Sign In"}
+                    </motion.button>
                 </form>
-            </div>
+
+                <p className="text-gray-400 text-sm mt-8 text-center">
+                    Don't have an account? 
+                    <Link href="/signup" className="text-blue-400 font-medium hover:text-blue-300 ml-1 transition-colors">
+                        Sign up here
+                    </Link>
+                </p>
+            </motion.div>
         </div>
     )
 }
+
+
+
 
 export default login
