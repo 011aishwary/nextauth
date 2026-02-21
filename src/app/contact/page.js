@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -43,7 +43,6 @@ const ContactPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-20 px-4 text-white overflow-hidden relative">
-      <Toaster position="top-center" reverseOrder={false} />
       
       <motion.div
         initial="hidden"
