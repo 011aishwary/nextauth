@@ -67,7 +67,7 @@ const login = () => {
                 transition={{ duration: 0.5 }}
                 className="w-full max-w-md bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl"
             >
-                <div className="text-center mb-8">
+                <div className="text-center mb-0">
                     <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
                     <p className="text-gray-400">Please sign in to your account</p>
                 </div>
