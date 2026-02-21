@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 
 export default async function Page({ params }) {
@@ -9,14 +9,15 @@ export default async function Page({ params }) {
     const db = client.db("SRTlinks")
     const collection = db.collection("url")
 
+
     const check = await collection.findOne({shorturl: shorturl})
     if(check){
           redirect(check.url)
     }
     else{
-        redirect(`${process.env.DOMAIN}`)
+        notFound()
     }
 
   
   return <div>My Post: {shorturl}</div>
-}
+}s
