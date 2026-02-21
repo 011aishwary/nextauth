@@ -35,10 +35,12 @@ export default function RootLayout({
             <span></span>
           </div>
         </div>
-        
-        <Navbar/>
-          
-        <main className="relative z-10 ">
+        <div className="relative">
+
+          <Navbar />
+        </div>
+
+        <main className="relative ">
           {children}
         </main>
       </body>

@@ -23,16 +23,16 @@ export default function Home() {
     <div className="flex flex-col min-h-screen text-white overflow-x-hidden">
 
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center min-h-[90vh] px-4 py-10">
+      <section className="flex flex-col items-center justify-center text-center min-h-[100vh] px-4 py-10">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="max-w-4xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
           <motion.h1
             variants={fadeInUp}
-            className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 drop-shadow-2xl"
           >
             Shorten Your Links, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
@@ -100,7 +100,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-24 px-4">
-        <div className="max-w-6xl mx-auto lg:px-20">
+        <div className="max-w-6xl mx-auto lg:px-2">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -171,8 +171,8 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-black/20 px-12">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-24 bg-black/20 px-4">
+        <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
