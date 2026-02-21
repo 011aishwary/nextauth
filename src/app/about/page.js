@@ -21,7 +21,7 @@ const staggerContainer = {
 
 const AboutPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-20 px-4 text-white overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen py-20 px-4 mt-10 text-white overflow-hidden">
       <motion.div
         initial="hidden"
         animate="visible"

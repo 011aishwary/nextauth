@@ -1,4 +1,4 @@
-import { redirect, notFound } from "next/navigation";
+﻿import { redirect, notFound } from "next/navigation";
 import clientPromise from "@/lib/mongodb";
 
 export default async function Page({ params }) {
@@ -20,4 +20,4 @@ export default async function Page({ params }) {
 
   
   return <div>My Post: {shorturl}</div>
-}s
+}
