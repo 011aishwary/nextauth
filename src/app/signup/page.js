@@ -26,7 +26,7 @@ const Signup = () => {
             
         } catch (error) {
             console.log("SignUp Failed")
-            toast.error(error.message)
+            console.error(error.message)
         }
 
     }
