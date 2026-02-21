@@ -9,7 +9,6 @@ export default async function Page({ params }) {
     const db = client.db("SRTlinks")
     const collection = db.collection("url")
 
-
     const check = await collection.findOne({shorturl: shorturl})
     if(check){
           redirect(check.url)
